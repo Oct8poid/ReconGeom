@@ -1,8 +1,12 @@
 # function for building local Hamiltonians
 
+# prs is a list of index pairs to be coupled by the local hamiltonian
+# d is a vector of matrix factor dimensions, currently restricted to the value 2
+# css is a 3x3 matrix of factors multiplying terms in the local hamiltonian
+
 buildH <- function(prs, d, ccs){
 
-	source("tIncl3.r")
+	source("tIncl.r")
 	
 	H <- 0
 	
@@ -16,7 +20,7 @@ buildH <- function(prs, d, ccs){
 	for(i in 1:length(prs)){
 		for(k in 1:3){
 			for(l in 1:3){
-				H <- H + ccs[k,l]*tIncl3(S[[k]], prs[[i]][1], d) %*% tIncl3(S[[l]], prs[[i]][2], d)
+				H <- H + ccs[k,l]*tIncl(S[[k]], prs[[i]][1], d) %*% tIncl(S[[l]], prs[[i]][2], d)
 			}
 		}
 	}
